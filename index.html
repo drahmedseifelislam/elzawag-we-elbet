@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سلسلة الزواج والبيت — دليل المحاور والدروس</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{cream:'#faf6ef',parchment:'#f0e9d8',ink:'#2c1810',teal:'#1a5c4c',gold:'#c9943e',rose:'#b5545a',sage:'#6b8f71',warm:'#8b6f47',sand:'#d4c5a9'},fontFamily:{kufi:['Noto Kufi Arabic','sans-serif'],amiri:['Amiri','serif']}}}}
+</script>
+<style>
+*{box-sizing:border-box}
+body{overflow-x:hidden}
+.grain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;opacity:.03;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.progress-bar{position:fixed;top:0;right:0;height:3px;background:linear-gradient(90deg,#1a5c4c,#c9943e);z-index:10000;transition:width .1s;border-radius:0 0 0 2px}
+.hero-bg{
+  background:linear-gradient(160deg,#1a5c4c 0%,#0d3d32 40%,#2c1810 100%);
+  position:relative;overflow:hidden;
+}
+.hero-bg::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 20%,rgba(201,148,62,.15) 0%,transparent 60%),
+             radial-gradient(ellipse at 70% 80%,rgba(26,92,76,.2) 0%,transparent 50%);
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0L80 40L40 80L0 40Z' fill='none' stroke='%23c9943e' stroke-width='.5'/%3E%3Ccircle cx='40' cy='40' r='15' fill='none' stroke='%23c9943e' stroke-width='.5'/%3E%3C/svg%3E");
+}
+.section-num{
+  font-family:'Amiri',serif;font-size:7rem;line-height:1;color:rgba(26,92,76,.07);
+  position:absolute;top:-1rem;right:0;pointer-events:none;font-weight:700;
+}
+.card{
+  background:rgba(255,255,255,.7);backdrop-filter:blur(8px);
+  border:1px solid rgba(201,148,62,.2);border-radius:16px;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+}
+.card:hover,.card:focus-visible{
+  transform:translateY(-4px);
+  box-shadow:0 12px 40px rgba(26,92,76,.12);
+  border-color:rgba(201,148,62,.4);
+  outline:none;
+}
+.card-accent{width:4px;border-radius:2px;background:linear-gradient(180deg,#1a5c4c,#c9943e)}
+.topic-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.25rem .75rem;border-radius:999px;font-size:.75rem;font-weight:600;
+  background:rgba(26,92,76,.08);color:#1a5c4c;border:1px solid rgba(26,92,76,.15);
+}
+.nav-dot{width:12px;height:12px;border-radius:50%;border:2px solid #c9943e;transition:all .3s;cursor:pointer}
+.nav-dot.active,.nav-dot:hover{background:#c9943e;transform:scale(1.3)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,#c9943e44,transparent)}
+.sc-badge{
+  display:inline-flex;align-items:center;gap:.35rem;
+  background:#ff5500;color:#fff;padding:.2rem .6rem;border-radius:999px;
+  font-size:.7rem;font-weight:600;
+}
+.animate-in{opacity:0;transform:translateY(40px)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.float-anim{animation:float 4s ease-in-out infinite}
+.quran-verse{
+  font-family:'Amiri',serif;font-size:1.25rem;line-height:2.2;
+  color:#2c1810;text-align:center;
+  padding:1.5rem 2rem;position:relative;
+  background:linear-gradient(135deg,rgba(201,148,62,.06),rgba(26,92,76,.04));
+  border-radius:12px;border:1px solid rgba(201,148,62,.15);
+}
+.quran-verse::before,.quran-verse::after{
+  content:'﴿';font-size:1.5rem;color:#c9943e;font-weight:700;
+}
+.quran-verse::after{content:'﴾'}
+@media(max-width:768px){
+  .section-num{font-size:4rem}
+}
+</style>
+</head>
+<body class="bg-cream text-ink font-kufi">
+<div class="grain"></div>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ========== HERO ========== -->
+<section class="hero-bg min-h-screen flex items-center justify-center relative">
+  <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+    <div class="mb-6 animate-in">
+      <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 text-amber-200 text-sm font-kufi tracking-wide border border-white/10">
+        دليل سلسلة د. أحمد سيف الإسلام
+      </span>
+    </div>
+    <h1 class="animate-in font-amiri text-5xl md:text-7xl text-white mb-6 leading-tight">
+      من قبل البداية<br>
+      <span class="text-amber-300">حتى استقرار البيت</span>
+    </h1>
+    <p class="animate-in font-kufi text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+      خريطة صوتية تأخذك في رحلة متكاملة — من فلسفة الزواج واختيار الشريك، عبر فهم الاختلافات وإدارة الخلافات، وصولاً إلى التسريح بإحسان وحماية الأبناء
+    </p>
+    <div class="animate-in flex flex-wrap justify-center gap-3 text-sm">
+      <span class="px-3 py-1.5 rounded-full bg-white/10 text-white/80 border border-white/10">20 درساً</span>
+      <span class="px-3 py-1.5 rounded-full bg-white/10 text-white/80 border border-white/10">10 محاور</span>
+      <span class="px-3 py-1.5 rounded-full bg-white/10 text-white/80 border border-white/10">~11 ساعة</span>
+    </div>
+    <div class="mt-12 animate-in float-anim">
+      <svg class="w-6 h-6 mx-auto text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ========== OVERVIEW NAV ========== -->
+<section class="py-16 bg-parchment/50 border-b border-gold/10">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="text-center font-amiri text-3xl text-teal mb-2 animate-in">محاور السلسلة</h2>
+    <p class="text-center text-warm text-sm mb-10 animate-in">اضغط على أي محور للانتقال إليه</p>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 animate-in" id="navGrid">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</section>
+<!-- ========== TOPIC SECTIONS ========== -->
+<main class="max-w-5xl mx-auto px-6 py-16 space-y-24">
+
+<!-- TOPIC 1 -->
+<section class="relative animate-in" id="t1">
+  <div class="section-num">١</div>
+  <div class="mb-8">
+    <span class="topic-badge">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+      المحور الأول
+    </span>
+    <h3 class="font-amiri text-3xl text-teal mt-3 mb-2">فلسفة الزواج والهدف منه</h3>
+    <p class="text-warm leading-relaxed text-sm max-w-2xl">إعادة تصحيح المفاهيم المغلوطة عن الزواج، والإجابة عن سؤال: "لماذا نتزوج أصلاً؟" لبناء وعي حقيقي بعيداً عن الأفلام والروايات الحالمة.</p>
+  </div>
+  <div class="grid gap-4">
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/zawaj','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 012.728-2.728"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">أريد أن أتزوج!</h4>
+          <p class="text-xs text-warm mt-1">خطبة الجمعة — رؤية شرعية واعية لهدف الزواج</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/epvaphubwklk','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">الزواج وقضية الرزق</h4>
+          <p class="text-xs text-warm mt-1">26:18 — من سلسلة الوحي للحياة · 1,031 استماع</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOPIC 2 -->
+<section class="relative animate-in" id="t2">
+  <div class="section-num">٢</div>
+  <div class="mb-8">
+    <span class="topic-badge">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+      المحور الثاني
+    </span>
+    <h3 class="font-amiri text-3xl text-teal mt-3 mb-2">بوصلة الاختيار الذكي</h3>
+    <p class="text-warm leading-relaxed text-sm max-w-2xl">كيف تختار شريك الحياة بناءً على معايير واقعية، وكيفية إدارة فترة الخطوبة بذكاء ومعرفة العلامات غير المناسبة قبل كَتْب الكتاب.</p>
+  </div>
+  <div class="grid gap-4">
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/122d2b46-2613-479c-b9f7-d804632afc33','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">زواج الصالونات واختيار شريك الحياة</h4>
+          <p class="text-xs text-warm mt-1">14:04 — من سلسلة الزواج والبيت · 383 استماع</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/bq08b4q0noql','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">اختيار الزوجة بين الواقعية والمثالية</h4>
+          <p class="text-xs text-warm mt-1">معايير الاختيار — التوازن بين الطموح والواقع</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/f7uehzvfsm2v','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-rose/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-rose" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">لا تعضلوهن</h4>
+          <p class="text-xs text-warm mt-1">عن منع الفتيات من الزواج — علامة يجب الحذر منها</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOPIC 3 -->
+<section class="relative animate-in" id="t3">
+  <div class="section-num">٣</div>
+  <div class="mb-8">
+    <span class="topic-badge">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+      المحور الثالث
+    </span>
+    <h3 class="font-amiri text-3xl text-teal mt-3 mb-2">كتالوج الاختلافات</h3>
+    <p class="text-warm leading-relaxed text-sm max-w-2xl">غوص عميق في طريقة تفكير الرجل وطريقة تفكير المرأة — المفتاح السحري لمنع كثير من المشاكل اليومية.</p>
+  </div>
+  <div class="grid gap-4">
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/i0femwrnn4dw','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">ولا تتمنوا ما فضل الله به بعضكم على بعض</h4>
+          <p class="text-xs text-warm mt-1">النسوية والذكورية — فهم الفطرة والعدالة بين الجنسين</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/hwkbp6g7nd4c','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">معنى ناقصات عقل ودين</h4>
+          <p class="text-xs text-warm mt-1">40:54 — شرح حديث في ضوء فهم طبيعة المرأة ومكرماتها · 621 استماع</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/djbafoqdgsa8','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-sage/20 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">مواجهة المشكلات بصراحة (أحب امرأة)</h4>
+          <p class="text-xs text-warm mt-1">كيف تتعامل مع المشاعر بصدق ومسؤولية</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOPIC 4 -->
+<section class="relative animate-in" id="t4">
+  <div class="section-num">٤</div>
+  <div class="mb-8">
+    <span class="topic-badge">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      المحور الرابع
+    </span>
+    <h3 class="font-amiri text-3xl text-teal mt-3 mb-2">فن إدارة الخلافات والذكاء العاطفي من خلال السيرة</h3>
+    <p class="text-warm leading-relaxed text-sm max-w-2xl">الخلافات أمر طبيعي، ولكن كيف تختلف بذكاء دون جرح الطرف الآخر؟ وكيف تحوّل الخلاف إلى نقطة تقارب لا نقطة تباعد؟</p>
+  </div>
+  <div class="grid gap-4">
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/ipoiy0tlajqr','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">تأمل في المشاكل الزوجية وسببها</h4>
+          <p class="text-xs text-warm mt-1">1:01:47 — من سلسلة الزواج والبيت · تشخيص جذري للأسباب · 580 استماع</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/m2ilyz0npfpo','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">النبي صلى الله عليه وسلم والمشاكل الزوجية</h4>
+          <p class="text-xs text-warm mt-1">نماذج نبوية في التعامل مع الخلافات الزوجية</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/2q9gzynq3wn3','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-sage/20 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">حياة الصحابة الاجتماعية مع زوجاتهم</h4>
+          <p class="text-xs text-warm mt-1">دروس عملية من السيرة في المعاشرة الحسنة</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOPIC 5 -->
+<section class="relative animate-in" id="t5">
+  <div class="section-num">٥</div>
+  <div class="mb-8">
+    <span class="topic-badge">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      المحور الخامس
+    </span>
+    <h3 class="font-amiri text-3xl text-teal mt-3 mb-2">الحقوق والواجبات — إدارة المركب</h3>
+    <p class="text-warm leading-relaxed text-sm max-w-2xl">توضيح الأدوار القيادية والتكاملية داخل البيت، ومفهوم القوامة الصحيح ودور السكن والاحتواء للمرأة.</p>
+  </div>
+  <div class="grid gap-4">
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/fti6ktf0p8sy','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">الرجال قوامون على النساء</h4>
+          <p class="text-xs text-warm mt-1">خطبة الجمعة — مفهوم القوامة الصحيح والتكامل بين الزوجين</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/z3laj9s7yvr7','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">الدين حسن الخلق</h4>
+          <p class="text-xs text-warm mt-1">41:51 — الخلق كأساس لبناء بيت مستقر</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOPIC 6 -->
+<section class="relative animate-in" id="t6">
+  <div class="section-num">٦</div>
+  <div class="mb-8">
+    <span class="topic-badge">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      المحور السادس
+    </span>
+    <h3 class="font-amiri text-3xl text-teal mt-3 mb-2">إدارة المشكلات قبل الانفصال</h3>
+    <p class="text-warm leading-relaxed text-sm max-w-2xl">نشوز الرجل ونشوز المرأة — خطوات عملية لإدارة الأزمات الزوجية ومحاولة الإصلاح، ومعرفة "نقطة النهاية".</p>
+  </div>
+  <div class="grid gap-4">
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/fjtqrbmt7vhf','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-rose/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-rose" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">نشوز الرجل</h4>
+          <p class="text-xs text-warm mt-1">الجهة التي لا تُتحدث عنها كثيراً — خلل الرجل في القيام بمسؤولياته</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/jdmjn4bwimaj','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">نشوز المرأة</h4>
+          <p class="text-xs text-warm mt-1">خطوات عملية للتعامل مع نشوز المرأة ومحاولة الإصلاح قبل الانفصال</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/apitf3vjnwqq','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">(التخيير) الواقعية في الحياة الزوجية</h4>
+          <p class="text-xs text-warm mt-1">خطوات عملية قبل اتخاذ قرار الانفصال</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOPIC 7 -->
+<section class="relative animate-in" id="t7">
+  <div class="section-num">٧</div>
+  <div class="mb-8">
+    <span class="topic-badge">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      المحور السابع
+    </span>
+    <h3 class="font-amiri text-3xl text-teal mt-3 mb-2">حفظ الأسرار وعدم الفجور في الخصومة</h3>
+    <p class="text-warm leading-relaxed text-sm max-w-2xl">خطورة إفشاء أسرار البيوت أو تشويه صورة الطرف الآخر بعد الانفصال — هدم للمروءة والدين.</p>
+  </div>
+  <div class="grid gap-4">
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/kvbkmyrmoo5x','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">سر بين الأزواج (التحريم)</h4>
+          <p class="text-xs text-warm mt-1">خطورة إفشاء أسرار الحياة الزوجية</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/4730658d-3e20','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">حقوق المسلم على المسلم (لا تباغضوا)</h4>
+          <p class="text-xs text-warm mt-1">32:14 — الحقوق التي لا تسقط حتى في الخلاف</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOPIC 8 -->
+<section class="relative animate-in" id="t8">
+  <div class="section-num">٨</div>
+  <div class="mb-8">
+    <span class="topic-badge">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"/></svg>
+      المحور الثامن
+    </span>
+    <h3 class="font-amiri text-3xl text-teal mt-3 mb-2">فلنتعامل برفق وإحسان — التسريح بإحسان</h3>
+    <div class="quran-verse my-6">فَإِمْسَاكٌ بِمَعْرُوفٍ أَوْ تَسْرِيحٌ بِإِحْسَانٍ</div>
+    <p class="text-warm leading-relaxed text-sm max-w-2xl mt-4">الانفصال لا يعني بداية المعركة، بل ينبغي أن يكون خروجاً راقياً يحفظ كرامة الطرفين.</p>
+  </div>
+  <div class="grid gap-4">
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/l1ho1qtxfzy6','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">قرار الطلاق (لا تنسوا الفضل)</h4>
+          <p class="text-xs text-warm mt-1">38:03 — من سلسلة الزواج والبيت · الأخلاق عند الانفصال</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/obnfwhv3znx9','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">الطلاق وإرادة الأهل</h4>
+          <p class="text-xs text-warm mt-1">دور التدخلات الخارجية في قرار الانفصال</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/ibbrblaqnckh','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-sage/20 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">لا تخرجوهن من بيوتهن</h4>
+          <p class="text-xs text-warm mt-1">حفظ كرامة المرأة حتى عند الانفصال</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOPIC 9 -->
+<section class="relative animate-in" id="t9">
+  <div class="section-num">٩</div>
+  <div class="mb-8">
+    <span class="topic-badge">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+      المحور التاسع
+    </span>
+    <h3 class="font-amiri text-3xl text-teal mt-3 mb-2">حماية الأطفال نفسياً</h3>
+    <p class="text-warm leading-relaxed text-sm max-w-2xl">الانفصال الذكي الذي لا يدفع الأطفال ثمنه — تنسيق العلاقة بين الأب والأم بعد الطلاق لتبقى علاقة احترام وتربية مشتركة.</p>
+  </div>
+  <div class="grid gap-4">
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/wb03u8oshfgj','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">بعد الطلاق — أحاديث الحضانة</h4>
+          <p class="text-xs text-warm mt-1">تنسيق العلاقة بين الأبوين بعد الانفصال لحماية الأطفال</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOPIC 10 -->
+<section class="relative animate-in" id="t10">
+  <div class="section-num">١٠</div>
+  <div class="mb-8">
+    <span class="topic-badge">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+      المحور العاشر
+    </span>
+    <h3 class="font-amiri text-3xl text-teal mt-3 mb-2">نماذج صبر وتثبيت في الأزمات</h3>
+    <p class="text-warm leading-relaxed text-sm max-w-2xl">في أوقات الأزمات يُستشهد بنماذج مثل امرأة عمران في الصبر والترفع وحفظ النفس، واللجوء إلى الله عند تغير الظروف واشتداد الابتلاءات.</p>
+  </div>
+  <div class="grid gap-4">
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/9vvm1vtemqci','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">امرأة عمران</h4>
+          <p class="text-xs text-warm mt-1">نموذج الصبر والتوكل والتسليم لأمر الله</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/p8uadc9eug5r','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">المرأة وصناعة الإيمان (امرأة فرعون)</h4>
+          <p class="text-xs text-warm mt-1">نموذج الترفع عن الذل والثبات على الحق رغم أشد الظروف</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+    <div class="card flex items-stretch p-0 group cursor-pointer" onclick="window.open('https://soundcloud.com/draseifelislam/e49ced4f-5fcb-4b83-a4b7-2c9f54a9a69d','_blank')" role="link" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="flex-1 p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-sage/20 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-kufi font-semibold text-ink group-hover:text-teal transition-colors">ولربك فاصبر</h4>
+          <p class="text-xs text-warm mt-1">اللجوء إلى الله عند اشتداد الابتلاءات</p>
+        </div>
+        <span class="sc-badge flex-shrink-0"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg> استمع</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<!-- ========== CHART ========== -->
+<section class="py-16 bg-parchment/30">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="text-center font-amiri text-3xl text-teal mb-2 animate-in">خريطة الرحلة</h2>
+    <p class="text-center text-warm text-sm mb-8 animate-in">توزيع الدروس على محاور السلسلة</p>
+    <div id="chartContainer" class="w-full h-80 md:h-96 animate-in" style="direction:ltr"></div>
+  </div>
+</section>
+
+<!-- ========== PLAYLIST LINK ========== -->
+<section class="py-16">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <div class="card p-8 md:p-12 animate-in">
+      <div class="w-16 h-16 rounded-2xl bg-orange-500/10 flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-orange-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg>
+      </div>
+      <h3 class="font-amiri text-2xl text-teal mb-3">قائمة التشغيل الكاملة</h3>
+      <p class="text-warm text-sm mb-6 max-w-lg mx-auto">جميع دروس سلسلة "الزواج والبيت" في مكان واحد على ساوند كلاود — 20 درساً بإجمالي 11 ساعة تقريباً</p>
+      <a href="https://soundcloud.com/draseifelislam/sets/enc3xopoepql" target="_blank"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-full font-kufi font-semibold text-sm hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/25">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.48 16.36l-7.2-4.8V6.84l7.2 4.8v4.72z"/></svg>
+        فتح القائمة على SoundCloud
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="py-10 border-t border-gold/10 text-center">
+  <p class="text-warm text-xs">المصدر: صفحة الشيخ د. أحمد سيف الإسلام على ساوند كلاود</p>
+  <p class="text-warm/60 text-xs mt-2">
+    <a href="https://soundcloud.com/draseifelislam" target="_blank" class="hover:text-teal transition-colors">soundcloud.com/draseifelislam</a>
+  </p>
+</footer>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// === PROGRESS BAR ===
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('progressBar').style.width=pct+'%';
+});
+
+// === NAV GRID ===
+const topics=[
+  {id:'t1',n:'١',t:'فلسفة الزواج'},
+  {id:'t2',n:'٢',t:'الاختيار الذكي'},
+  {id:'t3',n:'٣',t:'كتالوج الاختلافات'},
+  {id:'t4',n:'٤',t:'إدارة الخلافات'},
+  {id:'t5',n:'٥',t:'الحقوق والواجبات'},
+  {id:'t6',n:'٦',t:'قبل الانفصال'},
+  {id:'t7',n:'٧',t:'حفظ الأسرار'},
+  {id:'t8',n:'٨',t:'التسريح بإحسان'},
+  {id:'t9',n:'٩',t:'حماية الأطفال'},
+  {id:'t10',n:'١٠',t:'نماذج صبر وتثبيت'},
+];
+const grid=document.getElementById('navGrid');
+topics.forEach(tp=>{
+  const btn=document.createElement('button');
+  btn.className='nav-btn flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white/60 border border-gold/15 text-xs font-kufi font-medium text-ink hover:bg-teal/10 hover:border-teal/30 transition-all text-right';
+  btn.dataset.target=tp.id;
+  btn.innerHTML=`<span class="w-6 h-6 rounded-full bg-teal/10 text-teal flex items-center justify-center text-xs font-bold flex-shrink-0">${tp.n}</span><span class="truncate">${tp.t}</span>`;
+  btn.onclick=()=>document.getElementById(tp.id).scrollIntoView({behavior:'smooth',block:'start'});
+  grid.appendChild(btn);
+});
+
+// === SCROLL ANIMATIONS ===
+gsap.utils.toArray('.animate-in').forEach(el=>{
+  gsap.fromTo(el,{opacity:0,y:40},{
+    opacity:1,y:0,duration:0.8,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 85%',once:true}
+  });
+});
+
+// === CARD KEYBOARD ACCESSIBILITY ===
+document.querySelectorAll('.card[role="link"]').forEach(card=>{
+  card.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){
+      e.preventDefault();
+      card.click();
+    }
+  });
+});
+
+// === CHART ===
+const chartDom=document.getElementById('chartContainer');
+const myChart=echarts.init(chartDom,null,{renderer:'svg'});
+const chartData=[
+  {name:'فلسفة الزواج',value:2,color:'#1a5c4c'},
+  {name:'الاختيار الذكي',value:3,color:'#2d7a65'},
+  {name:'كتالوج الاختلافات',value:3,color:'#c9943e'},
+  {name:'إدارة الخلافات',value:3,color:'#b5545a'},
+  {name:'الحقوق والواجبات',value:2,color:'#6b8f71'},
+  {name:'قبل الانفصال',value:2,color:'#8b6f47'},
+  {name:'حفظ الأسرار',value:2,color:'#d4c5a9'},
+  {name:'التسريح بإحسان',value:3,color:'#1a5c4c'},
+  {name:'حماية الأطفال',value:1,color:'#c9943e'},
+  {name:'نماذج الصبر',value:3,color:'#b5545a'},
+];
+const option={
+  tooltip:{
+    trigger:'item',
+    backgroundColor:'rgba(250,246,239,.95)',
+    borderColor:'rgba(201,148,62,.3)',
+    borderWidth:1,
+    textStyle:{fontFamily:'Noto Kufi Arabic',color:'#2c1810',fontSize:13},
+    formatter:p=>`<b>${p.name}</b><br/>${p.value} دروس (${p.percent}%)`
+  },
+  series:[{
+    type:'pie',radius:['40%','72%'],center:['50%','52%'],
+    avoidLabelOverlap:true,
+    itemStyle:{borderRadius:6,borderColor:'#faf6ef',borderWidth:3},
+    label:{
+      show:true,fontFamily:'Noto Kufi Arabic',fontSize:11,color:'#2c1810',
+      formatter:'{b}\n{c} دروس'
+    },
+    emphasis:{
+      label:{fontSize:13,fontWeight:'bold'},
+      itemStyle:{shadowBlur:20,shadowOffsetX:0,shadowColor:'rgba(26,92,76,.25)'}
+    },
+    data:chartData.map(d=>({name:d.name,value:d.value,itemStyle:{color:d.color}}))
+  }]
+};
+myChart.setOption(option);
+ScrollTrigger.create({
+  trigger:chartDom,start:'top 80%',once:true,
+  onEnter:()=>myChart.resize()
+});
+window.addEventListener('resize',()=>myChart.resize());
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
